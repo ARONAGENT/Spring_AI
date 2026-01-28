@@ -4,8 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springJourney.spring_ai.dto.ProgramDTO;
 import org.junit.jupiter.api.Test;
+import org.springframework.ai.document.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 public class AiServiceTest {
@@ -37,5 +40,29 @@ public class AiServiceTest {
         ObjectMapper mapper = new ObjectMapper();
         System.out.println(mapper.writeValueAsString(programDTO1));
 
+    }
+
+    @Test
+    public void getEmbedText()
+    {
+        float[] array=aiService.getEmbeddingText("This is my Big Text..");
+        System.out.println(array.length);
+        for(float e:array){
+            System.out.print(e+" ");
+        }
+
+    }
+
+    @Test
+    public void putDataToVectorStore(){
+        aiService.putMoviesToVectorStore();
+    }
+
+    @Test
+    public void similaritySearch(){
+        List<Document> list=aiService.similaritySearch("Love and romance");
+        for(Document e: list){
+            System.out.println(e);
+        }
     }
 }
