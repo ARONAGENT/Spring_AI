@@ -24,7 +24,8 @@ class AdvisorImplServiceTest {
 
         // for QuestionAnswerAdvisor Advisor Use in RAG
         String msg= advisorImplService
-                .askAiWithRagAdvisor("what is hacking" ,"Rahul432");
+                .askAiWithRagAdvisor("what are Transaction Level"
+                        ,"Rahul432");
         System.out.println(msg);
     }
 

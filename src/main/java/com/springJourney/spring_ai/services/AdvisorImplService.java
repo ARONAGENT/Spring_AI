@@ -1,5 +1,6 @@
 package com.springJourney.spring_ai.services;
 
+import com.springJourney.spring_ai.advisor.TokenUsageAdvisor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -91,7 +92,8 @@ public class AdvisorImplService {
                                         .filterExpression("file_name == 'caching.pdf'")
                                         .topK(4)
                                         .build())
-                                .build()
+                                .build(),
+                        new TokenUsageAdvisor()
                 )
                 .call()
                 .content();
