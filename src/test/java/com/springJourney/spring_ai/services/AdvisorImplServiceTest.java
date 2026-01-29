@@ -12,6 +12,22 @@ class AdvisorImplServiceTest {
     @Autowired
     AdvisorImplService advisorImplService;
 
+
+    @Test
+    void addPdfDataToVectorStore() {
+
+        advisorImplService.AddCachingDataToVectorStore();
+    }
+
+    @Test
+    void askAiWithRAgAdvisor() {
+
+        // for QuestionAnswerAdvisor Advisor Use in RAG
+        String msg= advisorImplService
+                .askAiWithRagAdvisor("what is Caching" ,"Rahul432");
+        System.out.println(msg);
+    }
+
     @Test
     void askAiWithAdvisor() {
 
