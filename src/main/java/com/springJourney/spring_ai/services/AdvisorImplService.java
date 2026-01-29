@@ -2,7 +2,9 @@ package com.springJourney.spring_ai.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.vectorstore.VectorStoreChatMemoryAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ public class AdvisorImplService {
 
     private final ChatClient chatClient;
     private final VectorStore vectorStore;
+    private final ChatMemory chatMemory;
 
     public String askAiWithAdvisor(String prompt,String userId){
 
@@ -23,11 +26,14 @@ public class AdvisorImplService {
                     Answer in a friendly , conversational tone
                     """)
                     .advisors(
+                            MessageChatMemoryAdvisor.builder(chatMemory)
+                                    .conversationId(userId)
+                                    .build(),
+
                             VectorStoreChatMemoryAdvisor.builder(vectorStore)
                                     .conversationId(userId)
                                     .defaultTopK(4)
                                     .build()
-
                     )
                     .call()
                     .content();

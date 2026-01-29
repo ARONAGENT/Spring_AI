@@ -15,7 +15,8 @@ class AdvisorImplServiceTest {
     @Test
     void askAiWithAdvisor() {
 
-        String msg= advisorImplService.askAiWithAdvisor("It is Good Day by the Way I want To Ask you i want ask you whats my name and can u tell me about spring ai in 2 lines" ,"Rohan123");
+        // for MemoryChat Advisor
+        String msg= advisorImplService.askAiWithAdvisor("what is my Name By The way" ,"Rahul432");
         System.out.println(msg);
     }
 }
