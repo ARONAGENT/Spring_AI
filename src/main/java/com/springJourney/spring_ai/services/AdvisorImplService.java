@@ -3,6 +3,7 @@ package com.springJourney.spring_ai.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
 import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.client.advisor.vectorstore.VectorStoreChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
@@ -83,9 +84,12 @@ public class AdvisorImplService {
             
                     """)
                 .advisors(
+                        new SafeGuardAdvisor(List.of("hacking", "cracking","bypass security","malware", "ransomware")),
+
                         QuestionAnswerAdvisor.builder(vectorStore)
                                 .searchRequest(SearchRequest.builder()
                                         .filterExpression("file_name == 'caching.pdf'")
+                                        .topK(4)
                                         .build())
                                 .build()
                 )
