@@ -2,17 +2,34 @@ spring:
   application:
     name: spring-ai
   ai:
-#    ollama:
-#      base-url: http://localhost:11434
-#      chat:
-#        options:
-#          model: qwen3:4b
     openai:
       api-key: ${api_key}
-      base-url: https://api.groq.com/openai
       chat:
         options:
-          model: llama-3.3-70b-versatile
+          model: gpt-4o-mini
+      embedding:
+        options:
+          model: text-embedding-3-small
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
+            table-name: user-chat-memory
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/my-vector-db
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
 
+logging:
+  level:
+    org.springframework.ai:
+      chat.client: DEBUG
 
+weather.api.key: ${api_key2}
+base.url: https://api.openweathermap.org
